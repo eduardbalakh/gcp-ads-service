@@ -58,4 +58,5 @@ jobs:
 
       - name: Replace image in kubernetes deployment
         run: |-
-          sed -i 's/IMAGE_TO_DEPLOY/gcr.io/$PROJECT_ID/$IMAGE:$TAG/g' kube.yaml | cat kube.yaml
+          sed -i 's@IMAGE_TO_DEPLOY@gcr.io/$PROJECT_ID/$IMAGE:$TAG@g' kube.yaml
+          cat kube.yaml
