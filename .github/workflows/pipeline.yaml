@@ -12,6 +12,7 @@ env:
   DEPLOYMENT_NAME: ads-service
   IMAGE: ads-service
   TAG: 1.0.0
+  FULL_IMAGE: gcr.io/$PROJECT_ID/$IMAGE:$TAG
 
 jobs:
   setup-build-publish-deploy:
@@ -59,8 +60,12 @@ jobs:
       - name: Replace image in config
         run: |-
           replacement="gcr.io/$PROJECT_ID/$IMAGE:$TAG";
-          replacement
           sed -i 's@IMAGE_TO_DEPLOY@replacement'
+          cat kube.yaml
+
+      - name: Replace image in config1
+        run: |-
+          sed -i 's@IMAGE_TO_DEPLOY@"$FULL_IMAGE"'
           cat kube.yaml
 
 
