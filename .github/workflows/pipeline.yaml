@@ -60,7 +60,7 @@ jobs:
       - name: Replace image in config
         run: |-
           replacement="gcr.io/$PROJECT_ID/$IMAGE:$TAG";
-          sed -i 's@IMAGE_TO_DEPLOY@${{secrets.IMAGE_NAME}}:1.0.0@g'
+          sed -i 's@IMAGE_TO_DEPLOY@${{secrets.IMAGE_NAME}}:1.0.0@g' kube.yaml
           cat kube.yaml
 
       - name: Replace image in config1
