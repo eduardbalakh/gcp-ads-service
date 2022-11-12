@@ -11,7 +11,7 @@ env:
   GKE_CLUSTER_ZONE: ${{secrets.GKE_CLUSTER_ZONE}}
   DEPLOYMENT_NAME: ads-service
   IMAGE: ads-service
-  TAG: ${{github.sha}}
+  TAG: 1.0.0
 
 jobs:
   setup-build-publish-deploy:
