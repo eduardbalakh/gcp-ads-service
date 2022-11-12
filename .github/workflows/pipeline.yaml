@@ -57,13 +57,11 @@ jobs:
           docker push "gcr.io/$PROJECT_ID/$IMAGE:$TAG"
 
       - name: Replace image in config
-        uses: datamonsters/replace-action
-        with:
-          files: kube.yaml.yaml
-          replacements: 'IMAGE_TO_DEPLOY=gcr.io/$PROJECT_ID/$IMAGE:$TAG'
-
-      - name: Show kube.yaml
-        run: cat kube.yaml
+        run: |-
+          replacement="gcr.io/$PROJECT_ID/$IMAGE:$TAG";
+          replacement
+          sed -i 's@IMAGE_TO_DEPLOY@replacement'
+          cat kube.yaml
 
 
 
