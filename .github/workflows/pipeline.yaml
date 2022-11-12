@@ -50,8 +50,8 @@ jobs:
 
       - name: Build Docker image
         run: |-
-          docker build --tag "grc.io/$PROJECT_ID/$IMAGE:$TAG" .
+          docker build --tag "gcr.io/$PROJECT_ID/$IMAGE:$TAG" .
 
       - name: Publish image to GCR
         run: |-
-          docker push "grc.io/$PROJECT_ID/$IMAGE:$TAG"
+          docker push "gcr.io/$PROJECT_ID/$IMAGE:$TAG"
