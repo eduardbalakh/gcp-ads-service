@@ -11,7 +11,7 @@ env:
   GKE_CLUSTER_ZONE: ${{secrets.GKE_CLUSTER_ZONE}}
   DEPLOYMENT_NAME: ads-service
   IMAGE: ads-service
-  TAG: ${{github.ref_name}}
+  TAG: ${{github.sha}}
 
 jobs:
   setup-build-publish-deploy:
@@ -30,7 +30,7 @@ jobs:
           settings-path: ${{github.workspace}}
 
       - name: Build with Maven
-        run: mvn clean package
+        run: mvn clean package -q
 
       - name: Setup Google Cloud CLI
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.3
