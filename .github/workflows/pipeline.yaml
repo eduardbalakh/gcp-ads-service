@@ -56,8 +56,14 @@ jobs:
         run: |-
           docker push "gcr.io/$PROJECT_ID/$IMAGE:$TAG"
 
-      - name: Replace image in kubernetes deployment
-        run: |-
-          replacement=gcr.io/$PROJECT_ID/$IMAGE:$TAG;
-          sed -i 's@IMAGE_TO_DEPLOY@$replacement@g' kube.yaml
-          cat kube.yaml
+      - name: Replace image in config
+        uses: ./.github/actions/replace
+        with:
+          files: kube.yaml.yaml
+          replacements: 'IMAGE_TO_DEPLOY=gcr.io/$PROJECT_ID/$IMAGE:$TAG'
+
+      - name: Show kube.yaml
+        run: cat kube.yaml
+
+
+
