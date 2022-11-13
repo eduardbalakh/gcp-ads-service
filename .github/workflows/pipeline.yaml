@@ -64,6 +64,6 @@ jobs:
 
       - name: Deploy to GKE
         run: |-
-          kubectl apply kube.yaml -f -
+          kubectl apply -f kube.yaml
 
 
