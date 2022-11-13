@@ -26,5 +26,24 @@ spec:
     app: gcp-ads-service
   type: LoadBalancer
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gcp-ads-service-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /rest/v1/ads
+            pathType: Prefix
+            backend:
+              service:
+                name: gcp-ads-service
+                port:
+                  number: 8080
