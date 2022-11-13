@@ -12,6 +12,7 @@ env:
   DEPLOYMENT_NAME: ads-service
   IMAGE: ${{secrets.IMAGE_NAME}}
   TAG: ${{github.run_number}}
+  FULL_IMAGE_NAME: ${{secrets.FULL_IMAGE_NAME}}
 
 jobs:
   setup-build-publish-deploy:
@@ -58,7 +59,7 @@ jobs:
 
       - name: Replace image in config
         run: |-
-          sed -i 's@IMAGE_TO_DEPLOY@${{secrets.IMAGE_NAME}}:${{github.run_number}}@g' kube.yaml
+          sed -i 's@IMAGE_TO_DEPLOY@${{secrets.FULL_IMAGE_NAME}}:${{github.run_number}}@g' kube.yaml
           cat kube.yaml
           kubectl get pods
 
