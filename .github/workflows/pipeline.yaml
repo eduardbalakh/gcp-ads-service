@@ -67,10 +67,36 @@ jobs:
         run: |-
           kubectl apply -f kube.yaml
 
-      - name: Send notification to Telegram
+      - name: Send FAILURE notification to Telegram
+        if: ${{ failure() }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            🚫🚫🚫🚫🚫 FAIL 🚫🚫🚫🚫🚫
+            JOB ID: ${{ github.run_number }}
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            Repository: ${{ github.repository }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+      - name: Send SUCCESS notification to Telegram
+        if: ${{ success() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            ✅✅✅✅✅ SUCCESS ✅✅✅✅✅
+            JOB ID: ${{ github.run_number }}
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            Repository: ${{ github.repository }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
 
