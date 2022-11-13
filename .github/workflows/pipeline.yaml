@@ -11,7 +11,7 @@ env:
   GKE_CLUSTER_ZONE: ${{secrets.GKE_CLUSTER_ZONE}}
   DEPLOYMENT_NAME: ads-service
   IMAGE: ${{secrets.IMAGE_NAME}}
-  TAG: ${{github.sha}}
+  TAG: ${{github.run_number}}
 
 jobs:
   setup-build-publish-deploy:
@@ -58,7 +58,7 @@ jobs:
 
       - name: Replace image in config
         run: |-
-          sed -i 's@IMAGE_TO_DEPLOY@${{secrets.IMAGE_NAME}}:${{github.sha}}@g' kube.yaml
+          sed -i 's@IMAGE_TO_DEPLOY@${{secrets.IMAGE_NAME}}:${{github.run_number}}@g' kube.yaml
           cat kube.yaml
           kubectl get pods
 
