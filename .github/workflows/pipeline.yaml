@@ -30,9 +30,6 @@ jobs:
           server-id: github
           settings-path: ${{github.workspace}}
 
-      - name: FAIL STEP
-        run: exit 1
-
       - name: Build with Maven
         run: mvn clean package -q
 
@@ -101,5 +98,3 @@ jobs:
             Repository: ${{ github.repository }}
             
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-
-
