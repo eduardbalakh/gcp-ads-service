@@ -62,4 +62,8 @@ jobs:
           cat kube.yaml
           kubectl get pods
 
+      - name: Deploy to GKE
+        run: |-
+          kubectl apply kube.yaml -f -
+
 
