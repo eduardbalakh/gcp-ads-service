@@ -67,4 +67,10 @@ jobs:
         run: |-
           kubectl apply -f kube.yaml
 
+      - name: Send notification to Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
 
