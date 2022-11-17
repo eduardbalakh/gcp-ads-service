@@ -4,6 +4,7 @@ import com.ads.storageservice.dto.GetAdsResponse;
 import com.ads.storageservice.dto.model.AdsToSave;
 import com.ads.storageservice.storage.StorageService;
 import com.ads.storageservice.storage.model.AdsFilter;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,7 +24,7 @@ public class AdsController {
     }
 
     @GetMapping
-    public GetAdsResponse getAdsByFilter(@RequestParam String filter) {
+    public GetAdsResponse getAdsByFilter(@RequestParam @Nullable String filter) {
         AdsFilter adsFilter = parseFilterFromQueryParam(filter);
         return new GetAdsResponse(storageService.getAllByFilter(adsFilter));
     }
