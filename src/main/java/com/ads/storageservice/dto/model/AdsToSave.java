@@ -10,7 +10,7 @@ public class AdsToSave {
     private Double roomNumber;
     private Double square;
     private Integer floor;
-    private Boolean isFurnished;
+    private Boolean furnished;
     private String linkToAds;
     private List<String> linkToImages;
     private String source;
@@ -72,11 +72,11 @@ public class AdsToSave {
     }
 
     public Boolean getFurnished() {
-        return isFurnished;
+        return furnished;
     }
 
     public void setFurnished(Boolean furnished) {
-        isFurnished = furnished;
+        this.furnished = furnished;
     }
 
     public String getLinkToAds() {
