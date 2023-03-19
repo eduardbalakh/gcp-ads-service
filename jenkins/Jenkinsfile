@@ -1,0 +1,27 @@
+pipeline {
+    parameters {
+        string(name: 'REGION', defaultValue: 'eu-central-1', description: 'AWS region for CloudFormation deployment')
+        string(name: 'TEMPLATE_FILE_NAME', defaultValue: 'networks', description: 'Name of CloudFormation template file')
+        string(name: 'GITHUB_REPO', defaultValue: 'eduardbalakh/AWSlabs', description: 'Repo with cloudformation templates')
+    }
+
+    agent any
+
+    environment {
+        AWS_REGION = "${params.REGION}"
+        STACK_NAME = 'my-stack'
+        GITHUB_REPO = "${params.GITHUB_REPO}"
+        TEMPLATE_FILE = "${params.TEMPLATE_FILE_NAME}"
+        PARAMS_FILE = "${params.TEMPLATE_FILE_NAME}-params.json"
+        PIPELINE_FILE = 'Jenkinsfile'
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                sh "echo HELLO WORLD"
+            }
+
+        }
+    }
+}
