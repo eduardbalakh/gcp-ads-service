@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                sh "echo HELLO WORLD"
+                sh "echo $PATH"
             }
         }
 
