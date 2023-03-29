@@ -21,7 +21,12 @@ pipeline {
             steps {
                 sh "echo HELLO WORLD"
             }
+        }
 
+        stage('Build with MVN') {
+            steps {
+                sh "mvn clean package"
+            }
         }
     }
 }
