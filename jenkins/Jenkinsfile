@@ -28,5 +28,11 @@ pipeline {
                 sh "/usr/local/apache-maven-3.6.3/bin/mvn clean install package"
             }
         }
+
+        stage('Build image') {
+            steps {
+                sh "docker build --tag eduardbalakh/TestImages/AdsService:$TAG ."
+            }
+        }
     }
 }
