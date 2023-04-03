@@ -32,7 +32,7 @@ pipeline {
 
         stage('Build image') {
             steps {
-                sh """docker build --tag eduardbalakh/testimages/adsservice:${TAG} ."""
+                sh """docker build --tag eduardbalakh/adsservice:${TAG} ."""
             }
         }
 
