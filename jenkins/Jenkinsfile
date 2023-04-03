@@ -35,5 +35,11 @@ pipeline {
                 sh """docker build --tag eduardbalakh/testimages/adsservice:${TAG} ."""
             }
         }
+
+        stage('Push image to Docker Hub') {
+            steps {
+                sh """docker push eduardbalakh/testimages/adsservice:${TAG}"""
+            }
+        }
     }
 }
