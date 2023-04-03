@@ -14,7 +14,7 @@ pipeline {
         TEMPLATE_FILE = "${params.TEMPLATE_FILE_NAME}"
         PARAMS_FILE = "${params.TEMPLATE_FILE_NAME}-params.json"
         PIPELINE_FILE = 'Jenkinsfile'
-        TAG = ${BUILD_NUMBER}
+        TAG = "${BUILD_NUMBER}""
     }
 
     stages {
