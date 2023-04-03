@@ -38,7 +38,7 @@ pipeline {
 
         stage('Push image to Docker Hub') {
             steps {
-                sh """docker push eduardbalakh/testimages/adsservice:${TAG}"""
+                sh """docker push eduardbalakh/adsservice:${TAG}"""
             }
         }
     }
