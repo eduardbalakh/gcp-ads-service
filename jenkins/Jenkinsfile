@@ -32,12 +32,14 @@ pipeline {
 
         stage('Build image') {
             steps {
+                sh 'echo BUILD IMAGE'
                 //sh """docker build --tag eduardbalakh/adsservice:${TAG} ."""
             }
         }
 
         stage('Push image to Docker Hub') {
             steps {
+                sh 'echo PUSH IMAGE'
                 //sh """docker push eduardbalakh/adsservice:${TAG}"""
             }
         }
@@ -58,6 +60,7 @@ pipeline {
 
         stage('Update AWS resources') {
             steps {
+                sh 'echo TRIGGER CloudFormation_install pipeline'
                 /*build job: 'CloudFormation_install', parameters: [
                     string(name: 'GITHUB_REPO', value: 'eduardbalakh/gcp-ads-service'),
                     string(name: 'REGION', value: 'eu-central-1'),
