@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "VPCName",
+        "ParameterValue": "MYVPC"
+    },
+    {
+        "ParameterKey": "AvailabilityZone",
+        "ParameterValue": "eu-central-1a"
+    },
+    {
+        "ParameterKey": "ImageVersion",
+        "ParameterValue": "%imaveVersion%"
+    }
+]

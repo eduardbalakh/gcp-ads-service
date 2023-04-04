@@ -41,5 +41,29 @@ pipeline {
                 sh """docker push eduardbalakh/adsservice:${TAG}"""
             }
         }
+
+        stage('Change version in template') {
+            steps {
+                script {
+                    def imageVersion = "eduardbalakh/adsservice:${TAG}"
+                    sh "echo ${imageVersion}"
+                    sh 'cat aws/adsservice-params.json'
+                    sh 'cp aws/adsservice-params.json ${WORKSPACE}/params.json'
+                    sh 'echo FILE AFTER update'
+                    sh "sed -i 's/%imageVersion%/${imageVersion}/g' params.json"
+                    sh 'cat aws/adsservice-params.json'
+                }
+            }
+        }
+
+        stage('Update AWS resources') {
+            steps {
+                build job: 'CloudFormation_install', parameters: [
+                    string(name: 'GITHUB_REPO', value: 'eduardbalakh/gcp-ads-service'),
+                    string(name: 'REGION', value: 'eu-central-1'),
+                    string(name: 'TEMPLATE_FILE_NAME', value: 'adsservice')
+                ]
+            }
+        }
     }
 }
