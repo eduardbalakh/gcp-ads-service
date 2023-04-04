@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build with MVN') {
             steps {
-                sh "/usr/local/apache-maven-3.6.3/bin/mvn clean install package | ansiColor"
+                sh "/usr/local/apache-maven-3.6.3/bin/mvn clean install package"
             }
         }
 
@@ -54,6 +54,8 @@ pipeline {
                     sh 'echo FILE AFTER update'
                     sh "sed -i 's/%imageVersion%/${imageVersion}/g' params.json"
                     sh 'cat params.json'
+                    def filePath = sh(returnStdout: true, script: 'pwd').trim() + '/params.json'
+                    sh "echo ${filePath}"
                 }
             }
         }
