@@ -32,13 +32,13 @@ pipeline {
 
         stage('Build image') {
             steps {
-                sh """docker build --tag eduardbalakh/adsservice:${TAG} ."""
+                //sh """docker build --tag eduardbalakh/adsservice:${TAG} ."""
             }
         }
 
         stage('Push image to Docker Hub') {
             steps {
-                sh """docker push eduardbalakh/adsservice:${TAG}"""
+                //sh """docker push eduardbalakh/adsservice:${TAG}"""
             }
         }
 
