@@ -58,11 +58,11 @@ pipeline {
 
         stage('Update AWS resources') {
             steps {
-                build job: 'CloudFormation_install', parameters: [
+                /*build job: 'CloudFormation_install', parameters: [
                     string(name: 'GITHUB_REPO', value: 'eduardbalakh/gcp-ads-service'),
                     string(name: 'REGION', value: 'eu-central-1'),
                     string(name: 'TEMPLATE_FILE_NAME', value: 'adsservice')
-                ]
+                ]*/
             }
         }
     }
