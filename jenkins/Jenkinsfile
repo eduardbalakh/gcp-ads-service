@@ -51,7 +51,7 @@ pipeline {
                     sh 'cp aws/adsservice-params.json ${WORKSPACE}/params.json'
                     sh 'echo FILE AFTER update'
                     sh "sed -i 's/%imageVersion%/${imageVersion}/g' params.json"
-                    sh 'cat aws/adsservice-params.json'
+                    sh 'cat params.json'
                 }
             }
         }
