@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build with MVN') {
             steps {
-                sh "/usr/local/apache-maven-3.6.3/bin/mvn clean install package"
+                sh "/usr/local/apache-maven-3.6.3/bin/mvn clean install package | ansiColor"
             }
         }
 
