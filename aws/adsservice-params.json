@@ -9,6 +9,6 @@
     },
     {
         "ParameterKey": "ImageVersion",
-        "ParameterValue": "%imaveVersion%"
+        "ParameterValue": "eduardbalakh/adsservice:%imageVersion%"
     }
 ]
