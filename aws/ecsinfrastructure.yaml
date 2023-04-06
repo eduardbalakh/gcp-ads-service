@@ -1,0 +1,80 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Create an ECS cluster on an EC2 instance'
+
+Parameters:
+  AvailabilityZone:
+    Type: AWS::EC2::AvailabilityZone::Name
+  AmiID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Description: "The ID of the AMI."
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+  KeyPairName:
+    Type: String
+    Description: The name of an existing Amazon EC2 key pair in this region to use to SSH into the Amazon EC2 instances.
+
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: '10.0.0.0/16'
+      Tags:
+        - Key: 'Name'
+          Value: 'ECSVPC'
+  Subnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone
+      CidrBlock: '10.0.0.0/24'
+      VpcId: !Ref VPC
+      Tags:
+        - Key: 'Name'
+          Value: 'ECSSubnet'
+  EC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmiID # Amazon Linux 2 AMI
+      KeyName: !Ref KeyPairName
+      SecurityGroupIds:
+        - !Ref EC2InstanceSecurityGroup
+      SubnetId: !Ref Subnet
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          echo ECS_CLUSTER=${ClusterName} >> /etc/ecs/ecs.config
+          yum install -y aws-cli
+          yum update -y
+          amazon-linux-extras install -y docker
+          service docker start
+          usermod -a -G docker ec2-user
+          chkconfig docker on
+  EC2InstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: 'Allow HTTP traffic to EC2 instance'
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  ECSCluster:
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+      ClusterName: !Ref 'ClusterName'
+
+Outputs:
+  VPCId:
+    Value: !Ref VPC
+    Description: 'ID of the VPC'
+  SubnetId:
+    Value: !Ref Subnet
+    Description: 'ID of the subnet'
+  EC2Instance:
+    Value: !Ref EC2Instance
+    Description: 'ID of the EC2 instance'

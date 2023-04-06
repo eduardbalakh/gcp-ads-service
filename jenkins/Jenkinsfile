@@ -60,6 +60,12 @@ pipeline {
             }
         }
 
+        stage('Upload files to s3 bucket') {
+            steps {
+                sh "aws s3 cp aws/ecsinfrastructure.yaml s3://bucket-for-templates-54654645/infrastructure/ecsinfrastructure.yaml --region eu-central-1"
+            }
+        }
+
         stage('Update AWS resources') {
             steps {
                 sh 'echo TRIGGER CloudFormation_install pipeline'
