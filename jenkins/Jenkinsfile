@@ -62,8 +62,8 @@ pipeline {
 
         stage('Upload files to s3 bucket') {
             steps {
-                sh "aws s3 cp aws/ecsinfrastructure.yaml s3://bucket-for-templates-54654645/infrastructure/ecsinfrastructure.yaml --region eu-central-1 --version-id ${TAG}"
-                sh "aws s3 cp aws/adsservice.yaml s3://bucket-for-templates-54654645/adsservice/adsservice.yaml --region eu-central-1 --version-id ${TAG}"
+                sh "aws s3 cp aws/ecsinfrastructure.yaml s3://bucket-for-templates-54654645/infrastructure/ecsinfrastructure.yaml --region eu-central-1 --version ${TAG}"
+                sh "aws s3 cp aws/adsservice.yaml s3://bucket-for-templates-54654645/adsservice/adsservice.yaml --region eu-central-1 --version ${TAG}"
             }
         }
 
